@@ -28,3 +28,30 @@
 .menu{
 	background-color: #3399ff;
 }
+
+img {
+	padding: 3em;
+	display: block;
+	margin: 0px auto;
+}
+
+.brand-logo {
+	margin-left: 30px;
+}
+
+
+@media(max-width: 420px) {
+    .home {
+        width: 30%;
+    }
+    img {
+        width: 40%;
+    }
+}
+
+@media(max-width: 740px) {
+    .home {
+        width: 70%;
+    }
+}
+

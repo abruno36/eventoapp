@@ -25,19 +25,14 @@
 	margin-bottom: 60px;
 }
 
-.brand-logo {
-	margin-left: 30px;
+span {
+    height: 3rem;
 }
 
-
-@media(max-width: 420px) {
-    .home {
-        width: 30%;
-    }
-    img {
-        width: 40%;
-    }
+.span img {
+    height: 3rem;
 }
+
 
 @media(max-width: 740px) {
     .home {

@@ -31,11 +31,11 @@
 
 
 	</header>
-    <div class="titulo">LISTA DE EVENTOS</div>
+	<div class="titulo">LISTA DE EVENTOS</div>
 	<table class="container">
-		
+
 		<thead>
-		
+
 			<tr>
 				<th>NOME</th>
 				<th>LOCAL</th>
@@ -44,14 +44,12 @@
 				<th>DELETAR</th>
 			</tr>
 		</thead>
-		<tbody>
-			<tr th:each="evento : ${eventos}">
-				<td><a
-					th:href="${(#mvc.url('EC#detalhesEvento').arg(0, evento.codigo)).build()}"><span
-						th:text="${evento.nome}"></span></a></td>
-				<td><span th:text="${evento.local}"></span></td>
-				<td><span th:text="${evento.data}"></span></td>
-				<td><span th:text="${evento.horario}"></span></td>
+		<tbody >
+			<tr th:each="evento : ${eventos}"  style="cursor:default" onMouseOver="javascript:this.style.backgroundColor='#E8E8E8'" onMouseOut="javascript:this.style.backgroundColor=''">
+				<td><a th:href="${(#mvc.url('EC#detalhesEvento').arg(0, evento.codigo)).build()}"><span	th:text="${evento.nome}"></span></a></td>
+				<td><a th:href="${(#mvc.url('EC#detalhesEvento').arg(0, evento.codigo)).build()}"><span th:text="${evento.local}"></span></a></td>
+				<td><a th:href="${(#mvc.url('EC#detalhesEvento').arg(0, evento.codigo)).build()}"><span th:text="${evento.data}"></span></a></td>
+				<td><a th:href="${(#mvc.url('EC#detalhesEvento').arg(0, evento.codigo)).build()}"><span th:text="${evento.horario}"></span></a></td>
 				<td><span><a class="waves-effect waves-light btn-small"
 						th:href="${(#mvc.url('EC#deletarEvento').arg(0, evento.codigo)).build()}"><i
 							class="material-icons left">delete</i></a></span></td>
@@ -59,6 +57,7 @@
 		</tbody>
 
 	</table>
+
 
 	<script type="text/javascript"
 		src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -69,9 +68,5 @@
 	<p>By Antonio Bruno - Copy Right - APP EVENTOS 2021</p>
 </footer>
 
-
-
 </html>
-
-
 

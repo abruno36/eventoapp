@@ -38,7 +38,8 @@ public class EventoController {
 			String local = evento.getLocal();
 			String data = evento.getData();
 			String horario = evento.getHorario();
-			attributes.addFlashAttribute("erro", "Verifique os campos digitados! Nome: " + nomeEven + " | Local: " + local + " | Data: " + data + " | Horário: " + horario );
+			attributes.addFlashAttribute("erro", "Verifique os campos digitados! Nome: " + nomeEven + " | Local: "
+					+ local + " | Data: " + data + " | Horário: " + horario);
 			return new RedirectView("/cadastrarEvento");
 		}
 		er.save(evento);
@@ -81,7 +82,8 @@ public class EventoController {
 		if (result.hasErrors()) {
 			String nomeConv = convidado.getNomeConvidado();
 			String rgConv = convidado.getRg();
-			attributes.addFlashAttribute("erro", "Verifique os campos digitados! Nome: " + nomeConv + " | RG: " + rgConv );
+			attributes.addFlashAttribute("erro",
+					"Verifique os campos digitados! Nome: " + nomeConv + " | RG: " + rgConv);
 			return new RedirectView("/{codigo}");
 		}
 		Evento evento = er.findByCodigo(codigo);

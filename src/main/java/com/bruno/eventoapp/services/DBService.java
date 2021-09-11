@@ -32,6 +32,9 @@ public class DBService {
 		Evento e9 = new Evento(null, "Pinturas Naturais", "KVT Instituto", "2021-11-13", "09:00");
 		Evento e10 = new Evento(null, "Turma da Mônica", "Shooping Plaza", "2021-11-10", "22:00");
 		Evento e11 = new Evento(null, "Show Recruta Zero", "Monte Verde", "2021-12-05", "22:00");
+		Evento e12 = new Evento(null, "Pinturas Naturais II", "KVT Instituto", "2021-12-13", "09:00");
+		Evento e13 = new Evento(null, "Feira Artesanato", "KVT RD", "2021-11-10", "09:00");
+		Evento e14 = new Evento(null, "Show Bruno e Marroni", "Monte Verde", "2021-12-05", "22:00");
 
 		Convidado c1 = new Convidado("AB-1234", "Marcos Barbosa", e1);
 		Convidado c2 = new Convidado("AB-678", "Samuel Santos", e1);
@@ -47,7 +50,7 @@ public class DBService {
 
 		e1.getConvidados().addAll(Arrays.asList(c1, c2, c3));
 
-		this.eventoRepository.saveAll(Arrays.asList(e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11));
+		this.eventoRepository.saveAll(Arrays.asList(e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, e13, e14));
 		this.convidadoRepository.saveAll(Arrays.asList(c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11));
 	}
 

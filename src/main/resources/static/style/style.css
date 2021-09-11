@@ -29,14 +29,12 @@ span {
     height: 3rem;
 }
 
-.span img {
-    height: 3rem;
+.titulo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+    padding: 2px 10em 0 1em;
+    color: #26a69a;
 }
 
-
-@media(max-width: 770px) {
-    .home {
-        width: 70%;
-    }
-}
 

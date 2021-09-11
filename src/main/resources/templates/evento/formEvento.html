@@ -18,34 +18,33 @@
 
 	<header>
 		<nav class="menu">
-			<div class="nav-wrapper">
-				<a class="brand-logo">Cadastro de Eventos</a>
-				<ul id="nav-mobile" class="right hide-on-med-and-down">
-					<li><a href="/" class="waves-effect waves-light btn"><i
-							class="material-icons left">home</i>HOME</a></li>
-					<li><a href="/eventos" class="waves-effect waves-light btn"><i
-							class="material-icons left">format_list_bulleted</i>LISTA DE
-							EVENTOS</a></li>
-				</ul>
-			</div>
+			<a href="/" class="brand-logo">SISTEMA DE EVENTOS</a>
+			<ul id="nav-mobile" class="right hide-on-med-and-down">
+				<li><a href="/">HOME<i
+						class="material-icons left">home</i></a></li>
+				<li><a href="/eventos">LISTA DE EVENTOS<i
+						class="material-icons left">format_list_bulleted</i></a></li>
+			</ul>
 		</nav>
 
 	</header>
 
 
 	<div class="container formEvento">
-
+		<a class="titulo">CADASTRO DE EVENTOS</a>
 		<form class="container" method="post">
 			Nome: <input type="text" required name="nome" />
 			<div class="row">
 				<div class="input-field col s6">
-					Local: <input type="text"  required name="local" />
+					Local: <input type="text" required name="local" />
 				</div>
 				<div class="input-field col s3">
-					Data: <input type="date" min="2021-09-10" max="2199-12-31" required name="data" />
+					Data: <input type="date" min="2021-09-10" max="2199-12-31" required
+						name="data" />
 				</div>
 				<div class="input-field col s3">
-					Horario: <input type="time" id="appt"  min="08:00" max="24:00" required  name="horario" />
+					Horario: <input type="time" id="appt" min="08:00" max="24:00"
+						required name="horario" />
 				</div>
 			</div>
 			<button class="waves-effect waves-light btn" type="submit">Salvar</button>

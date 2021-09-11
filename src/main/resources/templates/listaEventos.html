@@ -14,26 +14,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <link rel="stylesheet" href="style/style.css" />
 </head>
-<body>
+<body style="padding-top: 80px;">
 
-	<header>
-		<nav class="menu">
+	<header style="width: 100%; position: fixed; top: 0;">
+
+		<nav>
 			<div class="nav-wrapper">
-				<a class="brand-logo">Lista de Eventos</a>
+				<a href="/" class="brand-logo">SISTEMA DE EVENTOS</a>
 				<ul id="nav-mobile" class="right hide-on-med-and-down">
-					<li><a href="/" class="waves-effect waves-light btn"><i
-							class="material-icons left">home</i>HOME</a></li>
-					<li><a href="/cadastrarEvento"
-						class="waves-effect waves-light btn"><i
-							class="material-icons left">add_circle_outline</i>Cadastrar
-							evento</a></li>
+					<li><a href="/">HOME<i class="material-icons left">home</i></a></li>
+					<li><a href="/cadastrarEvento">CADASTRAR EVENTOS<i
+							class="material-icons left">add_circle_outline</i></a></li>
 				</ul>
 			</div>
 		</nav>
 
+
 	</header>
+    <div class="titulo">LISTA DE EVENTOS</div>
 	<table class="container">
+		
 		<thead>
+		
 			<tr>
 				<th>NOME</th>
 				<th>LOCAL</th>
@@ -44,13 +46,15 @@
 		</thead>
 		<tbody>
 			<tr th:each="evento : ${eventos}">
-				<td><a th:href="${(#mvc.url('EC#detalhesEvento').arg(0, evento.codigo)).build()}"><span th:text="${evento.nome}"></span></a></td>
+				<td><a
+					th:href="${(#mvc.url('EC#detalhesEvento').arg(0, evento.codigo)).build()}"><span
+						th:text="${evento.nome}"></span></a></td>
 				<td><span th:text="${evento.local}"></span></td>
 				<td><span th:text="${evento.data}"></span></td>
 				<td><span th:text="${evento.horario}"></span></td>
-				<td><a class="waves-effect waves-light btn-small"
-					th:href="${(#mvc.url('EC#deletarEvento').arg(0, evento.codigo)).build()}"><i
-						class="material-icons left">delete</i></a></td>
+				<td><span><a class="waves-effect waves-light btn-small"
+						th:href="${(#mvc.url('EC#deletarEvento').arg(0, evento.codigo)).build()}"><i
+							class="material-icons left">delete</i></a></span></td>
 			</tr>
 		</tbody>
 

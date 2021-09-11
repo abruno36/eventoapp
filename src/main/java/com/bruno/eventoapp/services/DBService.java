@@ -33,17 +33,17 @@ public class DBService {
 		Evento e10 = new Evento(null, "Turma da Mônica", "Shooping Plaza", "2021-11-10", "22:00");
 		Evento e11 = new Evento(null, "Show Recruta Zero", "Monte Verde", "2021-12-05", "22:00");
 
-		Convidado c1 = new Convidado(null, "Marcos Barbosa", e1);
-		Convidado c2 = new Convidado(null, "Samuel Santos", e1);
-		Convidado c3 = new Convidado(null, "antonio Bruno", e1);
-		Convidado c4 = new Convidado(null, "Marcos Barbosa", e2);
-		Convidado c5 = new Convidado(null, "Samuel Santos", e2);
-		Convidado c6 = new Convidado(null, "Antonio Bruno", e3);
-		Convidado c7 = new Convidado(null, "Yago Otawary e Tatiana", e8);
-		Convidado c8 = new Convidado(null, "Debora Domingues", e8);
-		Convidado c9 = new Convidado(null, "Antonio Bruno e Yago", e9);
-		Convidado c10 = new Convidado(null, "Marcelo Egidio", e10);
-		Convidado c11 = new Convidado(null, "Marcos Souza", e11);
+		Convidado c1 = new Convidado("AB-1234", "Marcos Barbosa", e1);
+		Convidado c2 = new Convidado("AB-678", "Samuel Santos", e1);
+		Convidado c3 = new Convidado("AC-44444", "antonio Bruno", e1);
+		Convidado c4 = new Convidado("AD-44445", "Marcos Barbosa", e2);
+		Convidado c5 = new Convidado("AD-44446", "Samuel Santos", e2);
+		Convidado c6 = new Convidado("AD-44447", "Antonio Bruno", e3);
+		Convidado c7 = new Convidado("AD-44448", "Yago Otawary e Tatiana", e8);
+		Convidado c8 = new Convidado("AD-44449", "Debora Domingues", e8);
+		Convidado c9 = new Convidado("AD-44410", "Antonio Bruno e Yago", e9);
+		Convidado c10 = new Convidado("AD-44411", "Marcelo Egidio", e10);
+		Convidado c11 = new Convidado("AD-44412", "Marcos Souza", e11);
 
 		e1.getConvidados().addAll(Arrays.asList(c1, c2, c3));
 

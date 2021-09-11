@@ -11,10 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
-
-import org.hibernate.validator.constraints.Length;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Evento implements Serializable {
@@ -22,18 +19,18 @@ public class Evento implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer codigo;
 
 	@NotEmpty(message = "Campo NOME é requerido!")
-	@Length(min = 5, max = 100, message = "Campo NOME deve ter entre 5 e 100 caracteres!")
+	@Size(min = 5, max = 100, message = "Campo NOME deve ter entre 5 e 100 caracteres!")
 	private String nome;
 
 	@NotEmpty(message = "Campo LOCAL é requerido!")
-	@Length(min = 5, max = 100, message = "Campo LOCAL deve ter entre 5 e 100 caracteres!")
+	@Size(min = 5, max = 100, message = "Campo LOCAL deve ter entre 5 e 100 caracteres!")
 	private String local;
 
-	@JsonFormat(pattern = "dd/MM/yyyy")
+	@NotEmpty
 	private String data;
 
 	@NotEmpty

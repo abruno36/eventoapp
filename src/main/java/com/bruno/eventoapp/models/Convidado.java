@@ -3,14 +3,12 @@ package com.bruno.eventoapp.models;
 import java.util.Objects;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
-
-import org.hibernate.validator.constraints.Length;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -18,11 +16,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Convidado {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer rg;
+	@NotEmpty
+	@Valid
+	private String rg;
 	
 	@NotEmpty(message = "Campo NOME CONVIDADO é requerido!")
-	@Length(min = 3, max = 100, message = "Campo NOME CONVIDADO deve ter entre 3 e 100 caracteres!")
+	@Size(min = 5, max = 100, message = "Campo NOME CONVIDADO deve ter entre 5 e 100 caracteres!")
+	@Valid
 	private String nomeConvidado;
 	
 	@JsonIgnore
@@ -30,11 +30,11 @@ public class Convidado {
 	@JoinColumn(name = "evento_rg")
 	private Evento evento;
 
-	public Integer getRg() {
+	public String getRg() {
 		return rg;
 	}
 
-	public void setRg(Integer rg) {
+	public void setRg(String rg) {
 		this.rg = rg;
 	}
 
@@ -43,7 +43,7 @@ public class Convidado {
 		super();
 	}
 
-	public Convidado(Integer rg, String nomeConvidado, Evento evento) {
+	public Convidado(String rg, String nomeConvidado, Evento evento) {
 		super();
 		this.rg = rg;
 		this.nomeConvidado = nomeConvidado;

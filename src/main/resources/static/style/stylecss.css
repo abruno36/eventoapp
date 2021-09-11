@@ -34,7 +34,7 @@ span {
 }
 
 
-@media(max-width: 740px) {
+@media(max-width: 770px) {
     .home {
         width: 70%;
     }

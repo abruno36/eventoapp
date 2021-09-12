@@ -20,8 +20,7 @@
 		<nav class="menu">
 			<a href="/" class="brand-logo">SISTEMA DE EVENTOS</a>
 			<ul id="nav-mobile" class="right hide-on-med-and-down">
-				<li><a href="/">HOME<i
-						class="material-icons left">home</i></a></li>
+				<li><a href="/">HOME<i class="material-icons left">home</i></a></li>
 				<li><a href="/eventos">LISTA DE EVENTOS<i
 						class="material-icons left">format_list_bulleted</i></a></li>
 			</ul>
@@ -39,8 +38,7 @@
 					Local: <input type="text" required name="local" />
 				</div>
 				<div class="input-field col s3">
-					Data: <input type="date" min="2021-09-10" max="2199-12-31" required
-						name="data" />
+					Data: <input type="date" id="datePickerId"  required name="data" />
 				</div>
 				<div class="input-field col s3">
 					Horario: <input type="time" id="appt" min="08:00" max="24:00"
@@ -65,5 +63,12 @@
 <footer class="page-footer">
 	<p>By Antonio Bruno - Copy Right - APP EVENTOS 2021</p>
 </footer>
-
+<script type="text/javascript">
+	datePickerId.min = new Date().toISOString().split("T")[0];
+</script>
 </html>
+
+
+
+
+

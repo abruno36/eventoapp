@@ -48,25 +48,29 @@
 			<tr th:each="evento : ${eventos}"  style="cursor:default" onMouseOver="javascript:this.style.backgroundColor='#E8E8E8'" onMouseOut="javascript:this.style.backgroundColor=''">
 				<td><a th:href="${(#mvc.url('EC#detalhesEvento').arg(0, evento.codigo)).build()}"><span	th:text="${evento.nome}"></span></a></td>
 				<td><a th:href="${(#mvc.url('EC#detalhesEvento').arg(0, evento.codigo)).build()}"><span th:text="${evento.local}"></span></a></td>
-				<td><a th:href="${(#mvc.url('EC#detalhesEvento').arg(0, evento.codigo)).build()}"><span th:text="${evento.data}"></span></a></td>
+				<td><a th:href="${(#mvc.url('EC#detalhesEvento').arg(0, evento.codigo)).build()}"><span th:text="${evento.data}" ></span></a></td>
 				<td><a th:href="${(#mvc.url('EC#detalhesEvento').arg(0, evento.codigo)).build()}"><span th:text="${evento.horario}"></span></a></td>
-				<td><span><a class="waves-effect waves-light btn-small"
+				<td><a class="waves-effect waves-light btn-small"
 						th:href="${(#mvc.url('EC#deletarEvento').arg(0, evento.codigo)).build()}"><i
-							class="material-icons left">delete</i></a></span></td>
+							class="material-icons left">delete</i></a></td>
 			</tr>
 		</tbody>
 
 	</table>
 
 
-	<script type="text/javascript"
-		src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src="materialize/js/materialize.min.js"></script>
-
+	
 </body>
 <footer class="page-footer">
 	<p>By Antonio Bruno - Copy Right - APP EVENTOS 2021</p>
 </footer>
+<script>
+
+</script>
+
+
 
 </html>
 

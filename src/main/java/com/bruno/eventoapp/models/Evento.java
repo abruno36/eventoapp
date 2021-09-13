@@ -13,6 +13,8 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 public class Evento implements Serializable {
 
@@ -30,8 +32,8 @@ public class Evento implements Serializable {
 	@Size(min = 5, max = 100, message = "Campo LOCAL deve ter entre 5 e 100 caracteres!")
 	private String local;
 
-	@NotEmpty
-	private String data;
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	private String  data;
 
 	@NotEmpty
 	private String horario;

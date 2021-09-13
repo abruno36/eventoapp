@@ -1,5 +1,9 @@
 package com.bruno.eventoapp.controllers;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +27,8 @@ public class EventoController {
 	@Autowired
 	private EventoRepository er;
 
+	private SimpleDateFormat formatBra;
+	
 	@Autowired
 	private ConvidadoRepository cr;
 
@@ -30,13 +36,36 @@ public class EventoController {
 	public String form() {
 		return "evento/formEvento";
 	}
+	
 
 	@RequestMapping(value = "/cadastrarEvento", method = RequestMethod.POST)
 	public RedirectView form(@Valid Evento evento, BindingResult result, RedirectAttributes attributes) {
+		
+		Calendar  hoje = Calendar.getInstance();
+		System.out.println(hoje);
+		System.out.println(hoje.getTime());
+		
+		formatBra = new SimpleDateFormat("dd/MM/yyyy");
+		
+		
+		
+		System.out.println(formatBra);
+		
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		Calendar calendar = Calendar.getInstance();
+		
+		System.out.println("Calendar");
+		System.out.println(formatter.format(calendar.getTime()));
+		
+		evento.setData(formatter.format(calendar.getTime()));
+		
+		System.out.println("Data Evento");
+		System.out.println("${evento.data}");
+		
 		if (result.hasErrors()) {
 			String nomeEven = evento.getNome();
 			String local = evento.getLocal();
-			String data = evento.getData();
+			String  data = evento.getData();
 			String horario = evento.getHorario();
 			attributes.addFlashAttribute("erro", "Verifique os campos digitados! Nome: " + nomeEven + " | Local: "
 					+ local + " | Data: " + data + " | Horário: " + horario);

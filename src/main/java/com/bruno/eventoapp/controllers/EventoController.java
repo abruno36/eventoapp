@@ -1,8 +1,5 @@
 package com.bruno.eventoapp.controllers;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 
 import javax.validation.Valid;
 
@@ -21,14 +18,14 @@ import com.bruno.eventoapp.models.Evento;
 import com.bruno.eventoapp.repository.ConvidadoRepository;
 import com.bruno.eventoapp.repository.EventoRepository;
 
+
+
 @Controller
 public class EventoController {
 
 	@Autowired
 	private EventoRepository er;
 
-	private SimpleDateFormat formatBra;
-	
 	@Autowired
 	private ConvidadoRepository cr;
 
@@ -36,39 +33,28 @@ public class EventoController {
 	public String form() {
 		return "evento/formEvento";
 	}
-	
 
 	@RequestMapping(value = "/cadastrarEvento", method = RequestMethod.POST)
 	public RedirectView form(@Valid Evento evento, BindingResult result, RedirectAttributes attributes) {
 		
-		Calendar  hoje = Calendar.getInstance();
-		System.out.println(hoje);
-		System.out.println(hoje.getTime());
+
+		System.out.println("evento.getData: " + evento.getData() );
+		String dataformatada = evento.getData().replaceAll("-", "/");
+		System.out.println("Data Formatada: " + dataformatada );
+		String[] s = dataformatada.split("/");
+		String novaData = s[2]+"/"+s[1]+"/"+s[0];
+		System.out.println("Nova Data: " + novaData );
 		
-		formatBra = new SimpleDateFormat("dd/MM/yyyy");
-		
-		
-		
-		System.out.println(formatBra);
-		
-		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-		Calendar calendar = Calendar.getInstance();
-		
-		System.out.println("Calendar");
-		System.out.println(formatter.format(calendar.getTime()));
-		
-		evento.setData(formatter.format(calendar.getTime()));
-		
-		System.out.println("Data Evento");
-		System.out.println("${evento.data}");
+		evento.setData(novaData);
+		System.out.println("Evento Data: " + evento.getData() );
 		
 		if (result.hasErrors()) {
 			String nomeEven = evento.getNome();
 			String local = evento.getLocal();
-			String  data = evento.getData();
+			String  data1 = evento.getData();
 			String horario = evento.getHorario();
 			attributes.addFlashAttribute("erro", "Verifique os campos digitados! Nome: " + nomeEven + " | Local: "
-					+ local + " | Data: " + data + " | Horário: " + horario);
+					+ local + " | Data: " + data1 + " | Horário: " + horario);
 			return new RedirectView("/cadastrarEvento");
 		}
 		er.save(evento);

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,15 +22,17 @@ public class Evento implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer codigo;
 
 	@NotEmpty(message = "Campo NOME é requerido!")
 	@Size(min = 5, max = 100, message = "Campo NOME deve ter entre 5 e 100 caracteres!")
+	@Column(name = "nome")
 	private String nome;
 
 	@NotEmpty(message = "Campo LOCAL é requerido!")
 	@Size(min = 5, max = 100, message = "Campo LOCAL deve ter entre 5 e 100 caracteres!")
+	@Column(name = "local")
 	private String local;
 
 	@JsonFormat(pattern = "dd/MM/yyyy")
@@ -49,6 +52,7 @@ public class Evento implements Serializable {
 		super();
 	}
 
+	
 	public Evento(Integer codigo, String nome, String local, String data, String horario) {
 		super();
 		this.codigo = codigo;

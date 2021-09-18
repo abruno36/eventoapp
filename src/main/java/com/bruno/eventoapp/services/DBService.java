@@ -19,7 +19,7 @@ public class DBService {
 	@Autowired
 	private ConvidadoRepository convidadoRepository;
 
-public void instanciaBaseDeDados()  {
+	public void instanciaBaseDeDados()  {
 		
 		Evento e1 = new Evento(null, "Show Zé Ramalho", "Santos", "03/08/2022", "22:00");
 		Evento e2 = new Evento(null, "Show Zeca Pagodinho", "São Paulo", "30/09/2021", "18:00");

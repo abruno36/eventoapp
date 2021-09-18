@@ -3,6 +3,7 @@
 <html xmlns:th="http://thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>EventosApp</title>
 <!--Import Google Icon Font-->
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
@@ -10,10 +11,10 @@
 <!--Import materialize.css-->
 <link type="text/css" rel="stylesheet"
 	href="materialize/css/materialize.min.css" media="screen,projection" />
-
 <!--Let browser know website is optimized for mobile-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <link rel="stylesheet" href="style/style.css" />
+
 </head>
 <body style="padding-top: 80px;">
 
@@ -33,22 +34,19 @@
 
 	</header>
 	<div class="titulo">LISTA DE EVENTOS</div>
+	
 	<table class="container" >
-
 		<thead>
-
 			<tr>
-				<th><a th:href="@{'/page/' + ${currentPage} + '?sortField=id&sortDir=' + ${reverseSortDir}}">CODIGO</a></th>
-				<th><a th:href="@{'/page/' + ${currentPage} + '?sortField=id&sortDir=' + ${reverseSortDir}}">NOME</a></th>
-				<th><a th:href="@{'/page/' + ${currentPage} + '?sortField=id&sortDir=' + ${reverseSortDir}}">LOCAL</a></th>
-				<th><a th:href="@{'/page/' + ${currentPage} + '?sortField=id&sortDir=' + ${reverseSortDir}}">DATA</a></th>
-				<th><a th:href="@{'/page/' + ${currentPage} + '?sortField=id&sortDir=' + ${reverseSortDir}}">HORARIO</a></th>
+				<th>NOME</th>
+				<th>LOCAL</th>
+				<th>DATA</th>
+				<th>HORARIO</th>
 				<th>DELETAR</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr th:each="evento : ${listEventos}" style="cursor:default" onMouseOver="javascript:this.style.backgroundColor='#E8E8E8'" onMouseOut="javascript:this.style.backgroundColor=''">
-				<td><a th:href="${(#mvc.url('EC#detalhesEvento').arg(0, evento.codigo)).build()}"><span th:text="${evento.codigo}"></span></a></td>
 				<td><a th:href="${(#mvc.url('EC#detalhesEvento').arg(0, evento.codigo)).build()}"><span th:text="${evento.nome}"></span></a></td>
 				<td><a th:href="${(#mvc.url('EC#detalhesEvento').arg(0, evento.codigo)).build()}"><span th:text="${evento.local}"></span></a></td>
 				<td><a th:href="${(#mvc.url('EC#detalhesEvento').arg(0, evento.codigo)).build()}"><span th:text="${evento.data}" ></span></a></td>
@@ -58,38 +56,25 @@
 						class="material-icons left">delete</i></a></td>
 			</tr>
 		</tbody>
-
-
 	</table>
-	<div>&nbsp;</div>
-	<div><i>Sorted by [[${sortField}]] in [[${sortDir}]] order</i></div>
-	<div>&nbsp;</div>
-	<div th:if="${totalPages > 1}">
-		Total Items: [[${totalItems}]]
-		&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;
-		
-		<a th:if="${currentPage > 1}" th:href="@{'/page/1' + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">First</a>
-		<span th:unless="${currentPage > 1}">First</span>
-		&nbsp;&nbsp;
-		
-		<a th:if="${currentPage > 1}" th:href="@{'/page/' + ${currentPage - 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Previous</a>
-		<span th:unless="${currentPage > 1}">Previous</span>
-		
-		&nbsp;&nbsp;
-		
-		<span th:each="i: ${#numbers.sequence(1, totalPages)}">
-			<a th:if="${currentPage != i}" th:href="@{'/page/' + ${i} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
-			<span th:unless="${currentPage != i}">[[${i}]]</span>
-			&nbsp;
-		</span>
-		
-		<a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${currentPage + 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>
-		<span th:unless="${currentPage < totalPages}">Next</span>
-		&nbsp;&nbsp;
-		
-		<a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${totalPages} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Last</a>
-		<span th:unless="${currentPage < totalPages}">Last</span>
-	</div>
+				<div class="row">
+				<div class="col-md-2"></div>
+				<div class="col-md-8">
+						<ul class="pagination justify-content-center">
+							<li class="page-item" th:classappend="${prev == 0 ? 'disabled': ''}">
+								<a class="page-link" th:href="@{|/?page=${prev}|}">Anterior</a>
+							</li>
+							<li class="page-item" th:each="page : ${pages}" th:classappend="${current == page ? 'active': ''}">
+								<a class="page-link" th:href="@{|/?page=${page}|}" th:text="${page}"></a>
+							</li>
+							<li class="page-item" th:classappend="${current == last ? 'disabled': ''}">
+								<a class="page-link" th:href="@{|/?page=${next}|}">Seguinte</a>
+							</li>
+						</ul>
+				</div>
+				<div class="col-md-2"></div>
+			</div>
+	
 	<script type="text/javascript"
 		src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src="materialize/js/materialize.min.js"></script>

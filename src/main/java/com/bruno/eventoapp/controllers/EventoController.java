@@ -96,7 +96,8 @@ public class EventoController {
 	eventos.addAttribute("listEventos", listEventos);
 	
 	return ("listaEventos");
-}
+	}
+	
 	
 	@RequestMapping(value = "/{codigo}", method = RequestMethod.GET)
 	public ModelAndView detalhesEvento(@PathVariable("codigo") Integer codigo) {

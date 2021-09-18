@@ -6,5 +6,6 @@ import com.bruno.eventoapp.models.Evento;
 
 public interface EventoRepository extends JpaRepository<Evento, Integer> {
 	Evento findByCodigo(Integer codigo);
+	
 		
 }

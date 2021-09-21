@@ -1,11 +1,9 @@
 package com.bruno.eventoapp.controllers;
 
+import javax.validation.Valid;
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
+import org.springframework.data.domain.Page;
 
 import com.bruno.eventoapp.models.Convidado;
 import com.bruno.eventoapp.models.Evento;
@@ -34,7 +33,7 @@ public class EventoController {
 	
 	@Autowired
 	private EventoService eventoService;
-
+	
 	@RequestMapping(value = "/cadastrarEvento", method = RequestMethod.GET)
 	public String form() {
 		return "evento/formEvento";
@@ -68,36 +67,6 @@ public class EventoController {
 		return new RedirectView("/cadastrarEvento");
 	}
 
-	@RequestMapping("/eventos")
-	public String viewHomePage(Model eventos) {
-		return viewPage(eventos, 1, "name", "asc");
-	}
-	
-	@RequestMapping("/eventos/{pageNum}")
-	public String viewPage(Model eventos, 
-			@PathVariable(name = "pageNum") int pageNum,
-			@Param("sortField") String sortField,
-			@Param("sortDir") String sortDir) {
-			
-	
-	Page<Evento> page = eventoService.listAll(pageNum, sortField, sortDir); 
-		
-	List<Evento> listEventos = page.getContent();
-	
-	eventos.addAttribute("currentPage", pageNum);
-	eventos.addAttribute("totalPages", page.getTotalPages());
-	eventos.addAttribute("totalItems", page.getTotalElements());
-	eventos.addAttribute("listEventos", listEventos);
-	
-	eventos.addAttribute("sortField", sortField);
-	eventos.addAttribute("sortDir", sortDir);
-	eventos.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
-	
-	eventos.addAttribute("listEventos", listEventos);
-	
-	return ("listaEventos");
-	}
-	
 	
 	@RequestMapping(value = "/{codigo}", method = RequestMethod.GET)
 	public ModelAndView detalhesEvento(@PathVariable("codigo") Integer codigo) {
@@ -118,24 +87,42 @@ public class EventoController {
 		return "redirect:/eventos";
 	}
 
-	@RequestMapping(value = "/{codigo}", method = RequestMethod.POST)
-	public RedirectView detalhesEventoPost(@PathVariable("codigo") Integer codigo, @Valid Convidado convidado,
-			BindingResult result, RedirectAttributes attributes) {
-		if (result.hasErrors()) {
-			String nomeConv = convidado.getNomeConvidado();
-			String rgConv = convidado.getRg();
-			attributes.addFlashAttribute("erro",
-					"Verifique os campos digitados! Nome: " + nomeConv + " | RG: " + rgConv);
-			return new RedirectView("/{codigo}");
-		}
-		Evento evento = er.findByCodigo(codigo);
-		convidado.setEvento(evento);
-		cr.save(convidado);
-		String nomeConv = convidado.getNomeConvidado();
-		attributes.addFlashAttribute("sucesso", "convidado " + nomeConv + " adicionado com sucesso!");
-		return new RedirectView("/{codigo}");
+	@RequestMapping("/eventos")
+	public String viewHomePage(Model eventos) {
+		return viewPage(eventos, 1, "nome", "asc");
 	}
-
+	
+	@RequestMapping("/eventos/{pageNum}")
+	public String viewPage(Model eventos, 
+			@PathVariable(name = "pageNum") int pageNum,
+			@Param("sortField") String sortField,
+			@Param("sortDir") String sortDir) {
+			
+	Page<Evento> page = eventoService.listAll(pageNum, sortField, sortDir); 
+	
+	System.out.println("eventos: " + eventos);
+	System.out.println("page: " + page);
+	System.out.println("sortField: " + sortField);
+	System.out.println("sortDir: " + sortDir);
+	
+	List<Evento> listEventos = page.getContent();
+	
+	System.out.println("listEventos: " + listEventos);
+	
+	eventos.addAttribute("currentPage", pageNum);
+	eventos.addAttribute("totalPages", page.getTotalPages());
+	eventos.addAttribute("totalItems", page.getTotalElements());
+	eventos.addAttribute("listEventos", listEventos);
+	
+	eventos.addAttribute("sortField", sortField);
+	eventos.addAttribute("sortDir", sortDir);
+	eventos.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+	
+	eventos.addAttribute("listEventos", listEventos);
+	
+	return ("listaEventos");
+	}
+	
 	@RequestMapping("/deletarConvidado")
 	public String deletarConvidado(String rg) {
 		Convidado convidado = cr.findByRg(rg);

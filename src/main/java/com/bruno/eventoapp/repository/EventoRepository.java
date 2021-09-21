@@ -8,7 +8,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import com.bruno.eventoapp.models.Evento;
 
 public interface EventoRepository extends CrudRepository<Evento, String>, PagingAndSortingRepository<Evento, String>{
-	Evento findByCodigo(Integer codigo);
+	Evento findByCodigo(Long codigo);
 	
 	Collection<Evento> findAll();
 		

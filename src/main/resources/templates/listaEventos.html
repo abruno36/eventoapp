@@ -62,29 +62,11 @@
 					th:href="${(#mvc.url('EC#detalhesEvento').arg(0, evento.codigo)).build()}"><span
 						th:text="${evento.horario}"></span></a></td>
 				<td><a class="waves-effect waves-light btn-small"
-					th:href="${(#mvc.url('EC#deletarEvento').arg(0, evento.codigo)).build()}"><i
-						class="material-icons left">delete</i></a></td>
+					th:href="${(#mvc.url('EC#deletarEvento').arg(0, evento.codigo)).build()}"><i class="material-icons left">delete</i></a></td>
 			</tr>
 		</tbody>
+
 	</table>
-	<div class="row">
-		<div class="col-md-2"></div>
-		<div class="col-md-8">
-			<ul class="pagination justify-content-center">
-				<li class="page-item" th:classappend="${prev == 0 ? 'disabled': ''}">
-					<a class="page-link" th:href="@{|/?page=${prev}|}">Anterior</a>
-				</li>
-				<li class="page-item" th:each="page : ${pages}"
-					th:classappend="${current == page ? 'active': ''}"><a
-					class="page-link" th:href="@{|/?page=${page}|}" th:text="${page}"></a>
-				</li>
-				<li class="page-item"
-					th:classappend="${current == last ? 'disabled': ''}"><a
-					class="page-link" th:href="@{|/?page=${next}|}">Seguinte</a></li>
-			</ul>
-		</div>
-		<div class="col-md-2"></div>
-	</div>
 	<script type="text/javascript"
 		src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src="materialize/js/materialize.min.js"></script>

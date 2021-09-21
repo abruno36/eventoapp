@@ -4,6 +4,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
-import org.springframework.data.domain.Page;
 
 import com.bruno.eventoapp.models.Convidado;
 import com.bruno.eventoapp.models.Evento;
@@ -69,7 +69,7 @@ public class EventoController {
 
 	
 	@RequestMapping(value = "/{codigo}", method = RequestMethod.GET)
-	public ModelAndView detalhesEvento(@PathVariable("codigo") Integer codigo) {
+	public ModelAndView detalhesEvento(@PathVariable("codigo") Long codigo) {
 		Evento evento = er.findByCodigo(codigo);
 		ModelAndView mv = new ModelAndView("evento/detalhesEvento");
 		mv.addObject("evento", evento);
@@ -80,8 +80,23 @@ public class EventoController {
 		return mv;
 	}
 
+	
+	@RequestMapping(value="/{codigo}", method=RequestMethod.POST)
+	public String detalhesEventoPost(@PathVariable("codigo") long codigo, @Valid Convidado convidado,  BindingResult result, RedirectAttributes attributes){
+		if(result.hasErrors()){
+			attributes.addFlashAttribute("mensagem", "Verifique os campos!");
+			return "redirect:/{codigo}";
+		}
+		Evento evento = er.findByCodigo(codigo);
+		convidado.setEvento(evento);
+		cr.save(convidado);
+		String nomeConvidado = convidado.getNomeConvidado();
+		attributes.addFlashAttribute("sucesso", "Convidado " + nomeConvidado + "  adicionado com sucesso!");
+		return "redirect:/{codigo}";
+	}
+	
 	@RequestMapping("/deletarEvento")
-	public String deletarEvento(Integer codigo) {
+	public String deletarEvento(Long codigo) {
 		Evento evento = er.findByCodigo(codigo);
 		er.delete(evento);
 		return "redirect:/eventos";

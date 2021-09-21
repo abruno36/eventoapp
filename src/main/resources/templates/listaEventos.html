@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <html xmlns:th="http://thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>EventosApp</title>
@@ -46,7 +46,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr th:each="evento : ${listEventos}" class="border border-primary" style="cursor: default"
+			<tr th:each="evento : ${eventlist}" class="border border-primary" style="cursor: default"
 				onMouseOver="javascript:this.style.backgroundColor='#E8E8E8'"
 				onMouseOut="javascript:this.style.backgroundColor=''">
 				<td><a th:href="${(#mvc.url('EC#detalhesEvento').arg(0, evento.codigo)).build()}"><span th:text="${evento.nome}"></span></a></td>
@@ -58,13 +58,15 @@
 		</tbody>
 	</table>
 	<div class="container">
+	
+	<p>Total Eventos: [[${totalItems}]]</p>
 		<nav aria-label="Page navigation example">
 			<ul class="pagination">
-				<li class="page-item"><a class="page-link" href="#">Previous</a></li>
-				<li class="page-item"><a class="page-link" href="#">1</a></li>
-				<li class="page-item"><a class="page-link" href="#">2</a></li>
-				<li class="page-item"><a class="page-link" href="#">3</a></li>
-				<li class="page-item"><a class="page-link" href="#">Next</a></li>
+				<li  th:if="${currentPage != 0}" class="page-item"><a class="page-link" th:href="@{'/page/'+${currentPage-1}}">Previous</a></li>
+				<li th:each="i:${#numbers.sequence(1, totalPages)}" th:classappend="${currentPage==i-1 ? 'active' : ''} " class="page-item">
+					<a class="page-link" th:href="@{'/page/'+${i-1}}">[[${i}]]</a>
+				</li>
+				<li th:if="${currentPage+1 != totalPages}" class="page-item"><a class="page-link" th:href="@{'/page/'+${currentPage+1}}">Next</a></li>
 			</ul>
 		</nav>
 	</div>

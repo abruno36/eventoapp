@@ -1,14 +1,13 @@
 package com.bruno.eventoapp.controllers;
 
 import javax.validation.Valid;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -80,7 +79,6 @@ public class EventoController {
 		return mv;
 	}
 
-	
 	@RequestMapping(value="/{codigo}", method=RequestMethod.POST)
 	public String detalhesEventoPost(@PathVariable("codigo") long codigo, @Valid Convidado convidado,  BindingResult result, RedirectAttributes attributes){
 		if(result.hasErrors()){
@@ -102,42 +100,6 @@ public class EventoController {
 		return "redirect:/eventos";
 	}
 
-	@RequestMapping("/eventos")
-	public String viewHomePage(Model eventos) {
-		return viewPage(eventos, 1, "nome", "asc");
-	}
-	
-	@RequestMapping("/eventos/{pageNum}")
-	public String viewPage(Model eventos, 
-			@PathVariable(name = "pageNum") int pageNum,
-			@Param("sortField") String sortField,
-			@Param("sortDir") String sortDir) {
-			
-	Page<Evento> page = eventoService.listAll(pageNum, sortField, sortDir); 
-	
-	System.out.println("eventos: " + eventos);
-	System.out.println("page: " + page);
-	System.out.println("sortField: " + sortField);
-	System.out.println("sortDir: " + sortDir);
-	
-	List<Evento> listEventos = page.getContent();
-	
-	System.out.println("listEventos: " + listEventos);
-	
-	eventos.addAttribute("currentPage", pageNum);
-	eventos.addAttribute("totalPages", page.getTotalPages());
-	eventos.addAttribute("totalItems", page.getTotalElements());
-	eventos.addAttribute("listEventos", listEventos);
-	
-	eventos.addAttribute("sortField", sortField);
-	eventos.addAttribute("sortDir", sortDir);
-	eventos.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
-	
-	eventos.addAttribute("listEventos", listEventos);
-	
-	return ("listaEventos");
-	}
-	
 	@RequestMapping("/deletarConvidado")
 	public String deletarConvidado(String rg) {
 		Convidado convidado = cr.findByRg(rg);
@@ -149,4 +111,22 @@ public class EventoController {
 		return "redirect:/" + codigo;
 	}
 
+	@GetMapping("/eventos")
+	public String viewHomePage(Model eventos) {
+		return findPaginated(0, eventos);
+	}
+	
+	@GetMapping("/page/{pagenum}")
+	public String findPaginated(@PathVariable int pagenum, Model model) {
+		
+		Page<Evento> eventlist  = eventoService.getEvenByPaginate(pagenum, 4);
+		
+		model.addAttribute("eventlist", eventlist);
+		model.addAttribute("currentPage", pagenum);
+		model.addAttribute("totalPages", eventlist.getTotalPages());
+		model.addAttribute("totalItems", eventlist.getTotalElements());
+		
+		return "listaEventos";
+	}
+	
 }

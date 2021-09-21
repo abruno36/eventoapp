@@ -27,5 +27,11 @@ public class EventoService {
 		return eventoRepository.findAll(pageable);
 	}
 	
+	public Page<Evento> getEvenByPaginate(int curentPage, int size) {
+		
+		Pageable pageable = PageRequest.of(curentPage, size);
+		return eventoRepository.findAll(pageable);
+	}
+	
 
 }

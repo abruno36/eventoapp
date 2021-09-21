@@ -231,10 +231,6 @@ sup {
 
 a {
   color: #0d6efd;
-  text-decoration: underline;
-}
-a:hover {
-  color: #0a58ca;
 }
 
 a:not([href]):not([class]), a:not([href]):not([class]):hover {
@@ -299,6 +295,7 @@ svg {
 table {
   caption-side: bottom;
   border-collapse: collapse;
+  padding: 4px 0 2px 0;
 }
 
 caption {
@@ -319,9 +316,25 @@ tfoot,
 tr,
 td,
 th {
-  border-color: inherit;
+  border-color: #aec8d5;
   border-style: solid;
-  border-width: 0;
+  border-width: thin;
+  border-radius: 2px;
+  padding: 8px 5px;
+}
+
+.header {
+  background-color: #c8dff0;
+  color: #04527b;
+  text-align: center;
+  border-color: #aec8d5;
+  border-style: solid;  
+  border-width: thin;
+  border-radius: 2px;
+}
+
+.detail {
+ text-align: center;	
 }
 
 label {
@@ -627,8 +640,8 @@ progress {
   width: 100%;
   padding-right: var(--bs-gutter-x, 0.75rem);
   padding-left: var(--bs-gutter-x, 0.75rem);
-  margin-right: auto;
-  margin-left: auto;
+  border-radius: 30px;
+  justify-items: center;
 }
 
 @media (min-width: 576px) {
@@ -3868,6 +3881,7 @@ textarea.form-control-lg {
 
 .nav {
   display: flex;
+  background-color: none;
   flex-wrap: wrap;
   padding-left: 0;
   margin-bottom: 0;
@@ -4731,8 +4745,11 @@ textarea.form-control-lg {
 
 .pagination {
   display: flex;
-  padding-left: 0;
+  padding: 10px 5px 40px 10px;
   list-style: none;
+  background-color: #ffffff;
+  border: none;
+  justify-items: center;
 }
 
 .page-link {

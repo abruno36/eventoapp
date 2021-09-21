@@ -1,15 +1,11 @@
 package com.bruno.eventoapp.repository;
 
-import java.util.Collection;
-
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.PagingAndSortingRepository;
 
 import com.bruno.eventoapp.models.Evento;
 
-public interface EventoRepository extends CrudRepository<Evento, String>, PagingAndSortingRepository<Evento, String>{
+public interface EventoRepository extends CrudRepository<Evento, String>, JpaRepository<Evento, String>{
 	Evento findByCodigo(Long codigo);
-	
-	Collection<Evento> findAll();
 		
 }

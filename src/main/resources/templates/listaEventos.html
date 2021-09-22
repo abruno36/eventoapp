@@ -38,10 +38,10 @@
 	<table class="container">
 		<thead>
 			<tr>
-				<th class="header">NOME</th>
-				<th class="header">LOCAL</th>
-				<th class="header">DATA</th>
-				<th class="header">HORARIO</th>
+				<th class="header"><a th:href="@{'/page/' + ${currentPage} + '?sortField=nome&sortDir=' + ${reverseSortDir}}">NOME</a></th>
+				<th class="header"><a th:href="@{'/page/' + ${currentPage} + '?sortField=local&sortDir=' + ${reverseSortDir}}">LOCAL</a></th>
+				<th class="header"><a th:href="@{'/page/' + ${currentPage} + '?sortField=data&sortDir=' + ${reverseSortDir}}">DATA</a></th>
+				<th class="header"><a th:href="@{'/page/' + ${currentPage} + '?sortField=horario&sortDir=' + ${reverseSortDir}}">HORARIO</a></th>
 				<th class="header">DELETAR</th>
 			</tr>
 		</thead>
@@ -62,17 +62,17 @@
 	<p>Total Eventos: [[${totalItems}]]</p>
 		<nav aria-label="Page navigation example">
 			<ul class="pagination">
-				<li  th:if="${currentPage != 0}" class="page-item"><a class="page-link" th:href="@{'/page/'+${currentPage-1}}">Previous</a></li>
+				<li  th:if="${currentPage != 0}" class="page-item"><a class="page-link" th:href="@{'/page/'+${currentPage-1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Previous</a></li>
 				<li th:each="i:${#numbers.sequence(1, totalPages)}" th:classappend="${currentPage==i-1 ? 'active' : ''} " class="page-item">
-					<a class="page-link" th:href="@{'/page/'+${i-1}}">[[${i}]]</a>
+					<a class="page-link" th:href="@{'/page/'+${i-1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
 				</li>
-				<li th:if="${currentPage+1 != totalPages}" class="page-item"><a class="page-link" th:href="@{'/page/'+${currentPage+1}}">Next</a></li>
+				<li th:if="${currentPage+1 != totalPages}" class="page-item"><a class="page-link" th:href="@{'/page/'+${currentPage+1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a></li>
 			</ul>
 		</nav>
 	</div>
 	<script type="text/javascript"
 		src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-	<script type="text/javascript" src="materialize/js/materialize.min.js"></script>
+	<script type="text/javascript" src="/materialize/js/materialize.min.js"></script>
 </body>
 <footer class="page-footer">
 	<p>By Antonio Bruno - Copy Right - APP EVENTOS 2021</p>

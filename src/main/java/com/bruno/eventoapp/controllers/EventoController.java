@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
@@ -113,19 +114,34 @@ public class EventoController {
 
 	@GetMapping("/eventos")
 	public String viewHomePage(Model eventos) {
-		return findPaginated(0, eventos);
+		return findPaginated(0, "nome", "asc", eventos);
 	}
 	
 	@GetMapping("/page/{pagenum}")
-	public String findPaginated(@PathVariable int pagenum, Model model) {
+	public String findPaginated(@PathVariable int pagenum, 
+			@RequestParam("sortField") String sortField,
+			@RequestParam("sortDir") String sortDir,
+			Model model) {
 		
-		Page<Evento> eventlist  = eventoService.getEvenByPaginate(pagenum, 4);
+		int pageSize = 5;
+		
+		Page<Evento> eventlist  = eventoService.getEvenByPaginate(pagenum, pageSize, sortField, sortDir);
 		
 		model.addAttribute("eventlist", eventlist);
 		model.addAttribute("currentPage", pagenum);
 		model.addAttribute("totalPages", eventlist.getTotalPages());
 		model.addAttribute("totalItems", eventlist.getTotalElements());
-		System.out.println("EVent List: " + eventlist);
+		model.addAttribute("sortField", sortField);
+		model.addAttribute("sortDir", sortDir);
+		model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+		
+		//System.out.println("findPaginated");
+		//System.out.println("eventlist: " + eventlist);
+		//System.out.println("currentPage: " + pagenum);
+		//System.out.println("totalPages: " + eventlist.getTotalPages());
+		//System.out.println("totalItems: " + eventlist.getTotalElements());
+		//System.out.println("sortField: " + sortField);
+		//System.out.println("sortDir: " + sortDir);
 		
 		return "listaEventos";
 	}

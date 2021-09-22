@@ -27,9 +27,12 @@ public class EventoService {
 		return eventoRepository.findAll(pageable);
 	}
 	
-	public Page<Evento> getEvenByPaginate(int curentPage, int size) {
+	public Page<Evento> getEvenByPaginate(int curentPage, int size, String sortField, String sortDirection) {
 		
-		Pageable pageable = PageRequest.of(curentPage, size);
+		Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() :
+			Sort.by(sortField).descending();
+		
+		Pageable pageable = PageRequest.of(curentPage, size, sort);
 		return eventoRepository.findAll(pageable);
 	}
 	

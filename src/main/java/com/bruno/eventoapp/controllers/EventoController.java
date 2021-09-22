@@ -125,6 +125,7 @@ public class EventoController {
 		model.addAttribute("currentPage", pagenum);
 		model.addAttribute("totalPages", eventlist.getTotalPages());
 		model.addAttribute("totalItems", eventlist.getTotalElements());
+		System.out.println("EVent List: " + eventlist);
 		
 		return "listaEventos";
 	}

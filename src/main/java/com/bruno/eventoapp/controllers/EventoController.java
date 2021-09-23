@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.view.RedirectView;
 
 import com.bruno.eventoapp.models.Convidado;
 import com.bruno.eventoapp.models.Evento;
@@ -40,7 +39,7 @@ public class EventoController {
 	}
 
 	@RequestMapping(value = "/cadastrarEvento", method = RequestMethod.POST)
-	public RedirectView form(@Valid Evento evento, BindingResult result, RedirectAttributes attributes) {
+	public String form(@Valid Evento evento, BindingResult result, RedirectAttributes attributes) {
 
 		System.out.println("evento.getData: " + evento.getData());
 		String dataformatada = evento.getData().replaceAll("-", "/");
@@ -59,17 +58,17 @@ public class EventoController {
 			String horario = evento.getHorario();
 			attributes.addFlashAttribute("erro", "Verifique os campos digitados! Nome: " + nomeEven + " | Local: "
 					+ local + " | Data: " + data1 + " | Horário: " + horario);
-			return new RedirectView("/cadastrarEvento");
+			return "redirect:/cadastrarEvento";
 		}
 		er.save(evento);
 		String nomeEvent = evento.getNome();
 		attributes.addFlashAttribute("sucesso", "Evento " + nomeEvent + "  adicionado com sucesso!");
-		return new RedirectView("/cadastrarEvento");
+		return "redirect:/cadastrarEvento";
 	}
 
 	
 	@RequestMapping(value = "/{codigo}", method = RequestMethod.GET)
-	public ModelAndView detalhesEvento(@PathVariable("codigo") Long codigo) {
+	public ModelAndView detalhesEvento(@PathVariable("codigo") long codigo) {
 		Evento evento = er.findByCodigo(codigo);
 		ModelAndView mv = new ModelAndView("evento/detalhesEvento");
 		mv.addObject("evento", evento);
@@ -95,7 +94,7 @@ public class EventoController {
 	}
 	
 	@RequestMapping("/deletarEvento")
-	public String deletarEvento(Long codigo) {
+	public String deletarEvento(long codigo) {
 		Evento evento = er.findByCodigo(codigo);
 		er.delete(evento);
 		return "redirect:/eventos";
@@ -107,8 +106,8 @@ public class EventoController {
 		cr.delete(convidado);
 
 		Evento evento = convidado.getEvento();
-		long codigoLong = evento.getCodigo();
-		String codigo = "" + codigoLong;
+		long codigoInt = evento.getCodigo();
+		String codigo = "" + codigoInt;
 		return "redirect:/" + codigo;
 	}
 

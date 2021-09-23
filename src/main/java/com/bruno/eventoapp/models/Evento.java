@@ -3,7 +3,6 @@ package com.bruno.eventoapp.models;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -24,7 +23,7 @@ public class Evento implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long codigo;
+	private long codigo;
 
 	@NotEmpty(message = "Campo NOME é requerido!")
 	@Size(min = 5, max = 100, message = "Campo NOME deve ter entre 5 e 100 caracteres!")
@@ -45,7 +44,7 @@ public class Evento implements Serializable {
 	@OneToMany(mappedBy="evento", cascade=CascadeType.ALL, orphanRemoval=true)
 	private List<Convidado> convidados = new ArrayList<>();
 
-	public Long getCodigo() {
+	public long getCodigo() {
 		return codigo;
 	}
 
@@ -53,8 +52,7 @@ public class Evento implements Serializable {
 		super();
 	}
 
-	
-	public Evento(Long codigo, String nome, String local, String data, String horario) {
+	public Evento(long codigo, String nome, String local, String data, String horario) {
 		super();
 		this.codigo = codigo;
 		this.nome = nome;
@@ -63,7 +61,7 @@ public class Evento implements Serializable {
 		this.horario = horario;
 	}
 
-	public void setCodigo(Long codigo) {
+	public void setCodigo(long codigo) {
 		this.codigo = codigo;
 	}
 
@@ -105,23 +103,6 @@ public class Evento implements Serializable {
 
 	public void setConvidados(List<Convidado> convidados) {
 		this.convidados = convidados;
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(codigo);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Evento other = (Evento) obj;
-		return codigo == other.codigo;
 	}
 
 }

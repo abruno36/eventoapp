@@ -5,16 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 public class Evento implements Serializable {
@@ -25,17 +21,13 @@ public class Evento implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long codigo;
 
-	@NotEmpty(message = "Campo NOME é requerido!")
-	@Size(min = 5, max = 100, message = "Campo NOME deve ter entre 5 e 100 caracteres!")
-	@Column(name = "nome")
+	@NotEmpty
 	private String nome;
 
-	@NotEmpty(message = "Campo LOCAL é requerido!")
-	@Size(min = 5, max = 100, message = "Campo LOCAL deve ter entre 5 e 100 caracteres!")
-	@Column(name = "local")
+	@NotEmpty
 	private String local;
 
-	@JsonFormat(pattern = "dd/MM/yyyy")
+	@NotEmpty
 	private String  data;
 
 	@NotEmpty

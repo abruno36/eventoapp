@@ -7,19 +7,20 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 public class Evento implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long codigo;
+	@Id @GeneratedValue(generator="system-uuid")
+	@GenericGenerator(name="system-uuid", strategy = "uuid")
+	private String codigo;
 
 	@NotEmpty
 	private String nome;
@@ -36,7 +37,7 @@ public class Evento implements Serializable {
 	@OneToMany(mappedBy="evento", cascade=CascadeType.ALL, orphanRemoval=true)
 	private List<Convidado> convidados = new ArrayList<>();
 
-	public long getCodigo() {
+	public String getCodigo() {
 		return codigo;
 	}
 
@@ -44,7 +45,7 @@ public class Evento implements Serializable {
 		super();
 	}
 
-	public Evento(long codigo, String nome, String local, String data, String horario) {
+	public Evento(String codigo, String nome, String local, String data, String horario) {
 		super();
 		this.codigo = codigo;
 		this.nome = nome;
@@ -53,7 +54,7 @@ public class Evento implements Serializable {
 		this.horario = horario;
 	}
 
-	public void setCodigo(long codigo) {
+	public void setCodigo(String codigo) {
 		this.codigo = codigo;
 	}
 
